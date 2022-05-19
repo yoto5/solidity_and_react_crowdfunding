@@ -70,7 +70,7 @@ contract Project {
         project_owner.transfer(address(this).balance);
     }
 
-    function get_curr_total_funds() private view returns(uint256){
+    function get_curr_total_funds() public view returns(uint256){
 
         uint256 curr_amount = 0;
         for(uint i=0; i<doners.length; i++){
