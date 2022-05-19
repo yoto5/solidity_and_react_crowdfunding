@@ -4,6 +4,8 @@ pragma solidity ^0.8.13;
 
 contract Project {
     address project_owner;
+    string project_name;
+    string project_description;
     uint256 target_amount;
     uint256 date_limit;
     string image_url;
@@ -12,9 +14,30 @@ contract Project {
 
     address[] doners;
     mapping(address=>uint256) doner_to_amount;
-    
-    function fund_project(uint256 amount) public {
 
+    constructor(
+        address owner,
+        string memory name,
+        string memory desc,
+        uint256 target,
+        uint256 end_date,
+        string memory image_add,
+        string[] memory types_arr,
+        uint256[] memory amounts_to_donate) {
+            project_owner = owner;
+            project_name = name;
+            project_description = desc;
+            target_amount = target;
+            date_limit = end_date;
+            image_url = image_add;
+            types = types_arr;
+            fixed_amounts_to_donate = amounts_to_donate;
+
+    }
+    
+    function fund_project() public payable {
+        doner_to_amount[msg.sender] += msg.value;
+        doners.push(msg.sender);
     }
 
     function return_funds_to_doners() public {
