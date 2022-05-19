@@ -44,16 +44,30 @@ contract Crowdfunding {
 
     function get_projects_by_type(string memory project_type) public view 
     returns(address[] memory){
+
         return type_to_projects[project_type];
     }
 
     function get_projects_by_user() public view 
     returns(address[] memory){
+
         return user_to_projects[msg.sender];
     }
 
     function get_all_projects() public view 
     returns(address[] memory){
+
         return projects;
+    }
+
+    function remove_project_from_type_mapping(string memory project_type, 
+    address project_add) public{
+        
+        for(uint i=0; i<type_to_projects[project_type].length; i++){
+            if(type_to_projects[project_type][i] == project_add){
+                delete type_to_projects[project_type][i];
+                break;
+            }
+        }
     }
 }
