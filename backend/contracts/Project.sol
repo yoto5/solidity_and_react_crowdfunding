@@ -225,8 +225,8 @@ contract Project {
          * funders_amounts[i].
          * the front end will get those arrays and will display funding history.
         */
-        string[] memory funders_names;
-        uint256[] memory funders_amounts;
+        string[] memory funders_names = new string[](funders.length);
+        uint256[] memory funders_amounts = new uint256[](funders.length);
 
         for(uint i=0; i<funders.length; i++){
             funders_names[i] = funder_to_name[funders[i]];

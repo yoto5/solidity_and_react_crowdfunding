@@ -11,8 +11,8 @@ contract Crowdfunding {
     mapping(string=>address[]) type_to_projects;
 
     // constractor parameters 
-    uint256 opration_fee_from_user;
-    uint256 opration_fee_to_project;
+    uint256 public opration_fee_from_user;
+    uint256 public opration_fee_to_project;
 
     constructor(
         uint256 fee_from_user, 
@@ -23,7 +23,7 @@ contract Crowdfunding {
          * be sent to the new project. 
          * the rest of the fees will be used by the main app for operation gas.
         */
-        require((opration_fee_to_project > 0) && (opration_fee_to_project < 100), 
+        require((fee_to_project > 0) && (fee_to_project < 100), 
         "Opration fee to project should be precent (0 < fee < 100)");
         opration_fee_from_user = fee_from_user;
         opration_fee_to_project = fee_to_project;
