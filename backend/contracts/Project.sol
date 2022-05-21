@@ -6,7 +6,6 @@ contract Project {
 
     // private attributes 
     address payable project_owner;
-    uint256 operation_fees;
 
     address payable[] funders;
     mapping(address=>bool) funder_exists;
@@ -34,8 +33,7 @@ contract Project {
         uint256 end_date,
         string memory image_add,
         string[] memory types_arr,
-        uint256[] memory amounts_to_donate,
-        uint256 fees_amount) {
+        uint256[] memory amounts_to_donate) {
             /* 
              * main app project factory will activate this constuctor.
             */
@@ -47,7 +45,6 @@ contract Project {
             image_url = image_add;
             types = types_arr;
             fixed_amounts_to_donate = amounts_to_donate;
-            operation_fees = fees_amount;
             created = block.timestamp;
             is_closed = false;
     }
@@ -77,15 +74,7 @@ contract Project {
             funder_to_name[msg.sender] = funder_name;
         }
         
-        max_recorded_amount = address(this).balance - operation_fees;
-    }
-
-    function fund_project_without_refund() external payable{
-        /* 
-         * this function will able sending operation fees to this project.
-         * in case of insufficient funds for gas fees, users and owner
-         * will be able to send fees to the project. 
-        */
+        max_recorded_amount = address(this).balance;
     }
 
     function return_funds_to_doners() public {
@@ -117,14 +106,14 @@ contract Project {
         require((this.is_success() == true) && (msg.sender == project_owner),
         "Project has not succeed yet, or you are not the owner.");
 
-        project_owner.transfer(address(this).balance - operation_fees);
+        project_owner.transfer(address(this).balance);
 
         is_closed = true;
     }
 
     function get_curr_total_funds() public view returns(uint256){
 
-        return address(this).balance - operation_fees;
+        return address(this).balance;
     }
 
     function is_success() public view returns(bool){

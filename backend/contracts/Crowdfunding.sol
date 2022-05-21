@@ -20,29 +20,6 @@ contract Crowdfunding {
     }
     TypesSet types_set;
 
-    // constractor parameters 
-    uint256 public operation_fees_from_user;
-    uint256 public operation_fees_to_project_in_precent;
-    uint256 public operation_fees_to_project;
-
-    constructor(
-        uint256 fee_from_user, 
-        uint256 fee_to_project_precent) {
-        /* 
-         * main app's owner should set how much fees users required to pay
-         * in order to open new project, as well as how much of this fees will
-         * be sent to the new project. 
-         * the rest of the fees will be used by the main app for operation gas.
-        */
-        require((fee_to_project_precent > 0) && (fee_to_project_precent < 100), 
-        "Opration fee to project should be precent (0 < fee < 100)");
-        operation_fees_from_user = fee_from_user;
-        operation_fees_to_project_in_precent = fee_to_project_precent;
-
-        // calculate the portion of the fees that will send to a new project.
-        operation_fees_to_project = (operation_fees_from_user*operation_fees_to_project_in_precent) / 100;
-    }
-
     function update_types(string[] memory types_from_user) private{
         /* 
          * this function will update the app's types pool
@@ -65,20 +42,14 @@ contract Crowdfunding {
         uint256 end_date,
         string memory image_add,
         string[] memory types_arr,
-        uint256[] memory amounts_to_donate) public payable returns(address){
+        uint256[] memory amounts_to_donate) public returns(address){
         /* 
          * this is a project factory function
          * flow:
-         * - check that the sender send operaion fees.
-         * - calaculate how much fees will be sent to the new project from the opp fees.
          * - create new project.
-         * - send fees to new project.
          * - add the new user to users list and add the new project to mappings.
          * - update the new types to our types pool.
         */
-        
-        // check for operation fee
-        require(msg.value >= operation_fees_from_user, "missing operation fee");
         
         // create new project with given parameters
         Project new_project = new Project(
@@ -89,11 +60,7 @@ contract Crowdfunding {
             end_date, 
             image_add,
             types_arr,
-            amounts_to_donate,
-            operation_fees_to_project);
-
-        //send operation fees to the new project
-        new_project.fund_project_without_refund{value:operation_fees_to_project}();
+            amounts_to_donate);
 
         // add the user to users list
         users.push(msg.sender);
