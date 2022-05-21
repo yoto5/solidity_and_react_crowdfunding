@@ -80,6 +80,14 @@ contract Project {
         max_recorded_amount = address(this).balance - operation_fees;
     }
 
+    function fund_project_without_refund() external payable{
+        /* 
+         * this function will able sending operation fees to this project.
+         * in case of insufficient funds for gas fees, users and owner
+         * will be able to send fees to the project. 
+        */
+    }
+
     function return_funds_to_doners() public {
         /*
          * everyone can demand refund.
