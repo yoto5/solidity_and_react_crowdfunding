@@ -2,10 +2,13 @@
 
 pragma solidity ^0.8.13;
 
+import '../interfaces/CrowdfundingWithTypes.sol';
+
 contract Project {
 
     // private attributes 
     address payable project_owner;
+    CrowdfundingWithTypes main_app;
 
     address payable[] funders;
     mapping(address=>bool) funder_exists;
@@ -33,7 +36,8 @@ contract Project {
         uint256 end_date,
         string memory image_add,
         string[] memory types_arr,
-        uint256[] memory amounts_to_donate) {
+        uint256[] memory amounts_to_donate,
+        address app) {
             /* 
              * main app project factory will activate this constuctor.
             */
@@ -45,6 +49,7 @@ contract Project {
             image_url = image_add;
             types = types_arr;
             fixed_amounts_to_donate = amounts_to_donate;
+            main_app = CrowdfundingWithTypes(app);
             created = block.timestamp;
             is_closed = false;
     }
@@ -172,6 +177,7 @@ contract Project {
         require(msg.sender == project_owner, "Need owner permissions.");
 
         types.push(project_type);
+        main_app.add_project_to_type_mapping(project_type, address(this));
     }
 
     
@@ -187,6 +193,7 @@ contract Project {
         for(uint i=0; i<types.length; i++){
             if(keccak256(bytes(types[i])) == keccak256(bytes(project_type))){
                 uint256 last_index = types.length - 1;
+                main_app.remove_project_from_type_mapping(types[i], address(this));
                 types[i] = types[last_index];
                 types.pop();
                 break;

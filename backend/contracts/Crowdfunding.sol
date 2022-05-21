@@ -3,8 +3,9 @@
 pragma solidity ^0.8.13;
 
 import './Project.sol';
+import '../interfaces/CrowdfundingWithTypes.sol';
 
-contract Crowdfunding {
+contract Crowdfunding is CrowdfundingWithTypes{
     address[] users;
     address[] projects;
     mapping(address=>address[]) user_to_projects;
@@ -60,7 +61,8 @@ contract Crowdfunding {
             end_date, 
             image_add,
             types_arr,
-            amounts_to_donate);
+            amounts_to_donate,
+            address(this));
 
         // add the user to users list
         users.push(msg.sender);
@@ -97,22 +99,23 @@ contract Crowdfunding {
         return projects;
     }
 
-    function add_project_to_types(string[] memory project_types, 
-    address project_add) public{
+    function add_project_to_type_mapping(string memory project_type, 
+    address project_add) external{
         /* 
-         * this function will be activate by the frontend when owner add type
+         * this function will be activate by a project when owner add type
          * to his project.
         */
-        for(uint i=0; i<project_types.length; i++){
-            type_to_projects[project_types[i]].push(project_add);
-        }
-        update_types(project_types);
+        type_to_projects[project_type].push(project_add);
+        
+        string[] memory temp_arr = new string[](1);
+        temp_arr[0] = project_type;
+        update_types(temp_arr);
     }
 
     function remove_project_from_type_mapping(string memory project_type, 
-    address project_add) public{
+    address project_add) external{
         /* 
-         * this function will be activate by the frontend when owner remove type
+         * this function will be activate by a project when owner remove type
          * from his project.
         */
         for(uint i=0; i<type_to_projects[project_type].length; i++){
