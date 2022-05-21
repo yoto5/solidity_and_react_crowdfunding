@@ -59,6 +59,7 @@ contract Project {
          * - update max recorded balance for this project.
         */
         require(is_closed == false, "This project is close.");
+        require(this.is_fail() == false, "This project was failed.");
 
         funder_to_amount[msg.sender] += msg.value;
 
@@ -123,7 +124,7 @@ contract Project {
          * then project was succeed.
         */
         uint256 curr_amount = get_curr_total_funds();
-        if((date_limit >= block.timestamp) && (curr_amount >= target_amount)){
+        if(curr_amount >= target_amount){
             return true;
         }
         return false;
@@ -227,5 +228,9 @@ contract Project {
             funders_amounts[i] = funder_to_amount[funders[i]];
         }
         return (funders_names, funders_amounts);
+    }
+
+    function set_time_limit(uint256 new_time) public{
+        date_limit = new_time;
     }
 }
