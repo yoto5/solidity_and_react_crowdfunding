@@ -10,6 +10,16 @@ contract Crowdfunding {
     mapping(address=>address[]) user_to_projects;
     mapping(string=>address[]) type_to_projects;
 
+    /* 
+     * this is a types set.
+     * we'll use it to update and get all types.
+    */
+    struct TypesSet{
+        string[] types;
+        mapping(string=>bool) is_exists;
+    }
+    TypesSet types_set;
+
     // constractor parameters 
     uint256 public opration_fee_from_user;
     uint256 public opration_fee_to_project;
@@ -29,6 +39,21 @@ contract Crowdfunding {
         opration_fee_to_project = fee_to_project;
     }
 
+    function update_types(string[] memory types_from_user) private{
+        /* 
+         * this function will update the app's types pool
+         * with the user's types sent to the new project.
+         * uses TypesSet struct in order to update in more efficient way.
+        */
+        for(uint i=0; i<types_from_user.length; i++){
+            string memory new_type = types_from_user[i];
+            if (!types_set.is_exists[new_type]) {
+                types_set.types.push(new_type);
+                types_set.is_exists[new_type] = true;
+            }
+        }
+    }
+
     function create_new_project(
         string memory name,
         string memory desc,
@@ -45,6 +70,7 @@ contract Crowdfunding {
          * - create new project.
          * - send opp fees to new project.
          * - add the new user to users list and add the new project to mappings.
+         * - update the new types to our types pool.
         */
         
         // check for operation fee
@@ -78,6 +104,9 @@ contract Crowdfunding {
         for(uint i=0; i < types_arr.length; i++){
             type_to_projects[types_arr[i]].push(address(new_project));
         }
+
+        // update types from user into app's types.
+        update_types(types_arr);
     }
 
     function get_projects_by_type(string memory project_type) public view 
@@ -115,9 +144,19 @@ contract Crowdfunding {
         */
         for(uint i=0; i<type_to_projects[project_type].length; i++){
             if(type_to_projects[project_type][i] == project_add){
-                delete type_to_projects[project_type][i];
+                uint256 last_index = type_to_projects[project_type].length - 1;
+                type_to_projects[project_type][i] = type_to_projects[project_type][last_index];
+                type_to_projects[project_type].pop();
                 break;
             }
         }
+    }
+
+    function get_all_types() public view returns(string[] memory){
+        /* 
+         * this function will return all the types in our main app.
+         * the frontend will use it to enable filtering by type.
+        */
+        return types_set.types;
     }
 }

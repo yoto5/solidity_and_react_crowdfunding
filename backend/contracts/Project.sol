@@ -9,6 +9,7 @@ contract Project {
     uint256 operation_fees;
 
     address payable[] funders;
+    mapping(address=>bool) funder_exists;
     mapping(address=>uint256) funder_to_amount;
     mapping(address=>string) funder_to_name;
 
@@ -50,15 +51,6 @@ contract Project {
             created = block.timestamp;
             is_closed = false;
     }
-    
-    function check_funder_exists(address funder) private view returns(bool){
-        for(uint i=0; i<funders.length; i++){
-            if(funders[i] == funder){
-                return true;
-            }
-        }
-        return false;
-    }
 
     function fund_project(string memory funder_name, bool is_anonymous) 
     public payable {
@@ -73,8 +65,9 @@ contract Project {
 
         funder_to_amount[msg.sender] += msg.value;
 
-        if(!check_funder_exists(msg.sender)){
+        if(!funder_exists[msg.sender]){
             funders.push(payable(msg.sender));
+            funder_exists[msg.sender] = true;
         }
         
         if(is_anonymous){
@@ -167,7 +160,9 @@ contract Project {
 
         for(uint i=0; i<fixed_amounts_to_donate.length; i++){
             if(fixed_amounts_to_donate[i] == amount){
-                delete fixed_amounts_to_donate[i];
+                uint256 last_index = fixed_amounts_to_donate.length - 1;
+                fixed_amounts_to_donate[i] = fixed_amounts_to_donate[last_index];
+                fixed_amounts_to_donate.pop();
                 break;
             }
         }
@@ -193,7 +188,9 @@ contract Project {
         */
         for(uint i=0; i<types.length; i++){
             if(keccak256(bytes(types[i])) == keccak256(bytes(project_type))){
-                delete types[i];
+                uint256 last_index = types.length - 1;
+                types[i] = types[last_index];
+                types.pop();
                 break;
             }
         }
