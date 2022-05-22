@@ -83,7 +83,7 @@ contract Project {
         max_recorded_amount = address(this).balance;
     }
 
-    function return_funds_to_doners() public {
+    function return_funds_to_funders() public {
         /*
          * everyone can demand refund.
          * refund can be activated only if those two conditions fulfiled:
@@ -254,6 +254,10 @@ contract Project {
     }
 
     function set_time_limit(uint256 new_time) public{
+        
+        require(is_closed == false, "This project is close."); 
+        require(msg.sender == project_owner, "Need owner permissions.");
+
         date_limit = new_time;
     }
 }

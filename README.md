@@ -23,7 +23,7 @@ The backend will be written in solidity and the frontend with React.ts.
 - users will be able to donate anonymously.
 - project will get closed after successful withdraw or failure and refund.
 
-### operation fees information:
+### Gas Fees Information:
 - owner successful withdraw - owner will pay the gas fees.
 - demand refund - the user who demand refund first will pay the gas fees.
 - fund project - the user who fund the project. 
@@ -71,4 +71,27 @@ This interface will able the projects contracts to add types in the main contrac
 <br>
 Since cyclic dependencies are forbidden, each project will have address of type  CrowdfundingWithTypes, and it will able the project to edit the main app's types pool.
 
+<br>
+
+## Backend Tests
+The backend tests are written in python with brownie package.
+<br>
+
+### Setup
+In order to run the test:
+- open a brownie project with brownie init 
+- locate the contracts/ interface/ tests in the proper directories
+- with CLI enter brownie test
+
+<br>
+
+### Test Cases
+- deploy a new main app without projects.
+- deploy new project from the main app and verify the info.
+- project was succeed and owner can withdraw and only owner can withdraw.
+- project was fail, every user can demand refund for funders, can't fund project if it fails.
+- get funding history, users can fund anonymously.
+- owner and only owner can change project's types and the change reflects in the main app mapping.
+- owner and only owner can change project's info: name/ description/ amounts to donate/ time limit
+- get all projects from main app, get projects by type, get projects by user
 ---
