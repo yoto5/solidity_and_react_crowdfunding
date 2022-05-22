@@ -24,18 +24,20 @@ The backend will be written in solidity and the frontend with React.ts.
 - project will get closed after successful withdraw or failure and refund.
 
 ### operation fees information:
-- project owners should pay operation fee when they create their projects.
-- operation fee amount will be set by the main app owner. 
-- the main app's owner will set percentage of how much fees will be sent to a new project. for example, owner can set this parameter to 80. in this case 80% of the user fees will be sent to the new project and 20% will stay at the main app.
-- when new project is create, the main app will send the operation fees to the new project according to the parameters mentioned above. 
+- owner successful withdraw - owner will pay the gas fees.
+- demand refund - the user who demand refund first will pay the gas fees.
+- fund project - the user who fund the project. 
+- create new project / edit existing project - project's owner
+- deploy main app - main app's owner.
 ---
 
 ## Backend
 As mentioned above, the backend is written in solidity and will be deployed to Ethereum testnet.
 <br>
-In this section we have two solidity contracts:
+In this section we have two solidity contracts And one interface:
 - Crowdfunding.sol
 - Project.sol
+- CrowdfundingWithTypes.sol - interface
 <br>
 
 ### Crowdfunding.sol
@@ -59,7 +61,14 @@ Our frontend will connect with this contract in order to:
 - owner withdraw.
 - add/ remove project type.
 - add/ remove fixed amount.
-- change project image.
+- change project image/name/description.
 - get the current balance.
+- get project's types.
+- get funding history - two lists of funders and amounts.
+
+### CrowdfundingWithTypes.sol
+This interface will able the projects contracts to add types in the main contract. as well as add/remove connection between type to project's address.
+<br>
+Since cyclic dependencies are forbidden, each project will have address of type  CrowdfundingWithTypes, and it will able the project to edit the main app's types pool.
 
 ---
