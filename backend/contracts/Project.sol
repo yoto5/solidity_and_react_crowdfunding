@@ -209,6 +209,22 @@ contract Project {
         image_url = picture_url;
     }
 
+    function change_project_name(string memory new_name) public {
+        
+        require(is_closed == false, "This project is close."); 
+        require(msg.sender == project_owner, "Need owner permissions.");
+        
+        project_name = new_name;
+    }
+
+    function change_project_description(string memory new_desc) public {
+        
+        require(is_closed == false, "This project is close."); 
+        require(msg.sender == project_owner, "Need owner permissions.");
+        
+        project_description = new_desc;
+    }
+
     function get_project_types() public view returns(string[] memory){
         return types;
     }
