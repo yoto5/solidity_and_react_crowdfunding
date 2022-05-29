@@ -94,4 +94,31 @@ In order to run the test:
 - owner and only owner can change project's types and the change reflects in the main app mapping.
 - owner and only owner can change project's info: name/ description/ amounts to donate/ time limit
 - get all projects from main app, get projects by type, get projects by user
+
+<br>
+
+## Backend Deployment
+
+In this project we'll deploy our contracts to Rinkeby testnet.
+<br>
+
+### Prerequisite:
+- Metamask account (or another wallet with Ethereum)
+- Infura account (send RPC requests to the blockchain)
+- brownie installed
+<br>
+
+### How to deploy:
+- Create .env file in your project.
+- Create two env vars in your .env - PRIVATE_KEY, WEB3_INFURA_PROJECT_ID.
+- Export your private key and assign to PRIVATE_KEY.
+- Assign your Infura project id to WEB3_INFURA_PROJECT_ID.
+- Run our deploy script with `brownie run scripts/deploy.py --network=rinkeby`
+- Now you can find your deployment info in build dir.
+
+### Deployment info:
+In our github repo **inside build dir** you can find the Rinkeby deployment info:
+- contracts/interfaces - all contracts/interfaces info such as ABI.
+- deployments - deployment info, inside map.json you can find our contract's address.
+
 ---
