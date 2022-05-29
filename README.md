@@ -80,8 +80,8 @@ The backend tests are written in python with brownie package.
 ### Setup
 In order to run the test:
 - open a brownie project with brownie init 
-- locate the contracts/ interface/ tests in the proper directories
-- with CLI enter brownie test
+- locate the contracts/interface/tests in the proper directories
+- in your terminal cd into the brownie project dir and enter: `brownie test`
 
 <br>
 
@@ -106,7 +106,6 @@ In this project we'll deploy our contracts to Rinkeby testnet.
 - Metamask account (or another wallet with Ethereum)
 - Infura account (send RPC requests to the blockchain)
 - brownie installed
-<br>
 
 ### How to deploy:
 - Create .env file in your project.
