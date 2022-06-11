@@ -1,7 +1,27 @@
 .detail{
-    text-align: center;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .detail img{
     width: 100%;
+}
+
+.name{
+    text-align: center;
+    box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    border: 1px solid #000080;
+    background-color: rgb(210, 207, 252);
+}
+
+.details{
+    text-align: left;
+}
+
+.info{
+    padding: 1rem;
+    background-color: white;
 }

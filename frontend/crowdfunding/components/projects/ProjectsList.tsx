@@ -9,8 +9,7 @@ function ProjectsList(props: any) {
           key={project.id}
           id={project.id}
           image={project.image}
-          title={project.title}
-          address={project.address}
+          name={project.name}
         />
       ))}
     </ul>

@@ -11,7 +11,7 @@ function ProjectElement(props: any) {
             <img src={props.image} alt={props.title} />
           </div>
           <div className={classes.content}>
-            <h3>{props.title}</h3>
+            <h3>{props.name}</h3>
           </div>
           <div className={classes.actions}>
             <button><Link href={'/' + props.id}>Show Details</Link></button>
