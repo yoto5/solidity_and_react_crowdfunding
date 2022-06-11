@@ -1,11 +1,10 @@
-import {ConnectButton} from 'web3uikit';
-
+import ConnectButton from '../layout/connectButton';
 import classes from './NavBar.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
 import pic from '../../styles/tech_symbol.png';
 
-function NavBar() {
+function NavBar(props: any) {
 
   return (
     <header className={classes.header}>
@@ -25,7 +24,7 @@ function NavBar() {
             <Link href='/new_project'>Add New Project</Link>
           </li>
           <li>
-            <ConnectButton moralisAuth={false}/>
+            <ConnectButton isConnectedHandler={props.isConnectedHandler}/>
           </li>
         </ul>
       </nav>

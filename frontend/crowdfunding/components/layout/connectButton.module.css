@@ -1,0 +1,14 @@
+.click button {
+    font: inherit;
+    cursor: pointer;
+    color: #000080;
+    border: 1px solid #000080;
+    background-color: #c1b1f8;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+  }
+  
+  .click button:hover,
+  .click button:active {
+    background-color: whitesmoke;
+  }

@@ -23,7 +23,7 @@ export async function getStaticProps(){
   const main_contract_abi = JSON.parse(JSON.stringify(crowdfunding_abi))
   const proj_abi = JSON.parse(JSON.stringify(project_abi))
   const main_contract = new web333.eth.Contract(main_contract_abi, address);
-  const projects_add = await main_contract.methods.get_all_projects().call({from: '0x12B23A65617A4201EC7DB64A47574C28A45f0664'});
+  const projects_add = await main_contract.methods.get_all_projects().call();
 
   console.log('res', projects_add);
 
