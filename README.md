@@ -1,4 +1,4 @@
-# solidity_and_react_crowdfunding
+# Solidity And next.js Crowdfunding
 
 ## Intro
 <br>
