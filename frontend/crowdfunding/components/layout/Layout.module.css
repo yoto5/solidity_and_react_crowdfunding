@@ -3,3 +3,19 @@
     width: 90%;
     max-width: 40rem;
   }
+
+.layerNote{
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+}
+
+.layerNote h1{
+    text-align: center;
+    padding: 5rem;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    transform: translateX(75%);
+    width: 40%;
+}

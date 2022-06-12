@@ -15,16 +15,16 @@ function NavBar(props: any) {
       <nav className={classes.nav}>
         <ul>
           <li>
-            <Link href='/'>All Projects</Link>
+            <Link href={{pathname: '/', query: { userId: props.userId }}}>All Projects</Link>
           </li>
           <li>
-            <Link href='/user_page'>My Area</Link>
+            <Link href={{pathname: '/user_page', query: { userId: props.userId }}}>My Area</Link>
           </li>
           <li>
-            <Link href='/new_project'>Add New Project</Link>
+            <Link href={{pathname: '/new_project', query: { userId: props.userId }}}>Add New Project</Link>
           </li>
           <li>
-            <ConnectButton isConnectedHandler={props.isConnectedHandler}/>
+            <ConnectButton isConnectedHandler={props.isConnectedHandler} account={props.userId}/>
           </li>
         </ul>
       </nav>

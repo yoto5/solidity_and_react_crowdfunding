@@ -2,7 +2,7 @@ import type { AppProps } from 'next/app'
 import { MoralisProvider } from 'react-moralis';
 import { getDefaultProvider } from 'ethers';
 import { Rinkeby } from '@usedapp/core';
-import { DAppProvider, ChainId } from '@usedapp/core';
+import { DAppProvider } from '@usedapp/core';
 
 import '../styles/globals.css'
 import Layout from "../components/layout/Layout";

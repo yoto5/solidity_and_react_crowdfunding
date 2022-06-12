@@ -1,4 +1,3 @@
-import { useEthers } from '@usedapp/core';
 import Web3 from 'web3'
 
 import ProjectsList from '../../components/projects/ProjectsList'
@@ -7,7 +6,6 @@ import project_abi from '../../contracts/project_abi.json'
 
 function UserPage(props: any){
 
-    const {account, activateBrowserWallet, deactivate} = useEthers()
     return(
         <ProjectsList projects={props.projects}/>
     )
@@ -18,7 +16,7 @@ export async function getServerSideProps(context: any){
     // fetch data from blockchain
     const address = "0x559Ab353210b80d1AA41F6E794616C0235170213"
     const infura = "https://rinkeby.infura.io/v3/de4decb45a434eb5ae1797bb14de7911";
-    const userAdd = context.params.userId;
+    const userAdd = context.query.userId;
     
     console.log('user', userAdd);
     // get all projects from main contract
