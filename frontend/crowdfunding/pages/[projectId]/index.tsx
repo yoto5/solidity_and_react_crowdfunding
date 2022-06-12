@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { useEthers } from '@usedapp/core';
 import Web3 from 'web3'
 
 import ProjectInfo from '../../components/projects/ProjectInfo';
@@ -8,6 +9,7 @@ import project_abi from '../../contracts/project_abi.json'
 const Project: NextPage = (props: any) => {
 
   const router = useRouter();
+  const {account} = useEthers();
 
   return (
     <ProjectInfo image={props.projectData.image} 
@@ -17,7 +19,10 @@ const Project: NextPage = (props: any) => {
                  endDate={props.projectData.endDate}
                  types={props.projectData.types}
                  donationAmounts={props.projectData.donationAmounts}
-                 isOwner={router.query.isOwner || false}/>
+                 isOwner={router.query.isOwner || false}
+                 projectId={props.projectData.id}
+                 account={account}
+                 router={router}/>
   )
 }
 

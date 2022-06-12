@@ -31,9 +31,7 @@
     justify-content: space-between;
 }
 
-.editable button {
-    display: flex;
-    justify-content: space-around;
+.editable button, .name button {
     width: 3rem;
     height: 2rem;
     text-align: center;
@@ -45,8 +43,70 @@
     background-color: transparent;
     border-radius: 4px;
   }
+
+  .name button{
+    background-color: whitesmoke;
+  }
   
   .editable button:hover,
-  .editable button:active {
+  .editable button:active,
+  .name button:hover,
+  .name button:active{
     background-color: #c1b1f8;
   }
+
+.editable input, .name input {
+width: 10rem;
+height: 2rem;
+text-align: center;
+margin: 1rem;
+font: inherit;
+cursor: pointer;
+color: #000080;
+border: 1px solid #000080;
+background-color: transparent;
+border-radius: 4px;
+}
+
+.name input{
+    background-color: whitesmoke;
+  }
+
+.submit{
+    display: flex;
+    justify-content: center;
+}
+
+.submit input {
+width: 20rem;
+height: 2rem;
+text-align: center;
+margin: 1rem;
+font: inherit;
+cursor: pointer;
+color: #017430;
+border: 1px solid #017430;
+background-color: transparent;
+border-radius: 4px;
+}
+
+.submit input:hover,
+.submit input:active{
+background-color: #bbddc8;
+}
+
+.editInfo{
+    display: flex;
+    justify-content: center;
+}
+
+.editInfo p{
+    width: 40rem;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    border: 1px solid #770202;
+    background-color: rgb(252, 207, 207);
+    margin: 1rem;
+}
