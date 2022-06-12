@@ -16,7 +16,8 @@ const Project: NextPage = (props: any) => {
                  target={props.projectData.target}
                  endDate={props.projectData.endDate}
                  types={props.projectData.types}
-                 donationAmounts={props.projectData.donationAmounts}/>
+                 donationAmounts={props.projectData.donationAmounts}
+                 isOwner={router.query.isOwner || false}/>
   )
 }
 

@@ -25,3 +25,28 @@
     padding: 1rem;
     background-color: white;
 }
+
+.editable{
+    display: flex;
+    justify-content: space-between;
+}
+
+.editable button {
+    display: flex;
+    justify-content: space-around;
+    width: 3rem;
+    height: 2rem;
+    text-align: center;
+    margin: 1rem;
+    font: inherit;
+    cursor: pointer;
+    color: #000080;
+    border: 1px solid #000080;
+    background-color: transparent;
+    border-radius: 4px;
+  }
+  
+  .editable button:hover,
+  .editable button:active {
+    background-color: #c1b1f8;
+  }

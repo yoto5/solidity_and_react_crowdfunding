@@ -18,7 +18,8 @@ function NewProject(props: any){
                 endDate: projectData.endDate,
                 image: projectData.image,
                 type: projectData.type,
-                amountToDonate: projectData.amountToDonate
+                amountToDonate: projectData.amountToDonate,
+                account: router.query.userId
             }
         });
     }

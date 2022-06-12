@@ -10,6 +10,7 @@ function ProjectsList(props: any) {
           id={project.id}
           image={project.image}
           name={project.name}
+          isOwner={props.isOwner}
         />
       ))}
     </ul>

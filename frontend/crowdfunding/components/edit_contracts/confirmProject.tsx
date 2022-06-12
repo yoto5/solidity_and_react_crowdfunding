@@ -1,4 +1,6 @@
-import { useWeb3Contract } from 'react-moralis';
+import { useContractFunction } from '@usedapp/core';
+import { Contract } from '@ethersproject/contracts';
+import { utils } from 'ethers';
 import Web3 from 'web3';
 
 import crowdfunding_abi from '../../contracts/crowdfunding_abi.json'
@@ -20,19 +22,25 @@ function ConfirmProject(props: any){
         };
 
     console.log('projectParams', projectParams);
+    
+    const crowdfundingInterface = new utils.Interface(crowdfunding_abi);
+    const crowdfundingAddress = "0x559Ab353210b80d1AA41F6E794616C0235170213";
+    const crowdfundingContract = new Contract(crowdfundingAddress, crowdfundingInterface);
+    const {send, state} = useContractFunction(crowdfundingContract, "create_new_project");
 
-    const {runContractFunction} = useWeb3Contract({
-        abi: crowdfunding_abi,
-        contractAddress: "0x559Ab353210b80d1AA41F6E794616C0235170213",
-        functionName: "create_new_project",
-        params: projectParams
-        });
-
-        console.log('runContractFunction', runContractFunction);
+    console.log('runContractFunction', send);
 
     async function approveHandler(){
-        const res = await runContractFunction();
-        console.log(res);
+        const res = send(
+            router.query.name,
+            router.query.description ? router.query.description : '',
+            String(Web3.utils.toWei(router.query.target)),
+            String(resolvedEndDate.valueOf() / 1000),
+            router.query.image,
+            [router.query.type],
+            [String(Web3.utils.toWei(router.query.amountToDonate))]
+            );
+        console.log('res: ', res, 'state: ', state);
 
         router.push('/');
     }

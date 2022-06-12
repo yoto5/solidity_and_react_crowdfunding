@@ -7,7 +7,7 @@ import project_abi from '../../contracts/project_abi.json'
 function UserPage(props: any){
 
     return(
-        <ProjectsList projects={props.projects}/>
+        <ProjectsList projects={props.projects} isOwner={true}/>
     )
 }
 

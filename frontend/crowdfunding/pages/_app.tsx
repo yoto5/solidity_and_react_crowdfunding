@@ -1,5 +1,4 @@
 import type { AppProps } from 'next/app'
-import { MoralisProvider } from 'react-moralis';
 import { getDefaultProvider } from 'ethers';
 import { Rinkeby } from '@usedapp/core';
 import { DAppProvider } from '@usedapp/core';
@@ -19,11 +18,9 @@ const config = {
 function MyApp({ Component, pageProps }: AppProps) {
   return(
     <DAppProvider config={config}>
-      <MoralisProvider initializeOnMount={false}>
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </MoralisProvider>
     </DAppProvider>
     
   ) 

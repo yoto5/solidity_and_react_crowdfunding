@@ -14,7 +14,7 @@ function ProjectElement(props: any) {
             <h3>{props.name}</h3>
           </div>
           <div className={classes.actions}>
-            <button><Link href={'/' + props.id}>Show Details</Link></button>
+            <button><Link href={{pathname: String('/' + props.id), query: { isOwner: props.isOwner }}}>Show Details</Link></button>
           </div>
         </div>
       </Card>

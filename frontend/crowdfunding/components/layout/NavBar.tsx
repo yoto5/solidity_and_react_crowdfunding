@@ -18,7 +18,7 @@ function NavBar(props: any) {
             <Link href={{pathname: '/', query: { userId: props.userId }}}>All Projects</Link>
           </li>
           <li>
-            <Link href={{pathname: '/user_page', query: { userId: props.userId }}}>My Area</Link>
+            <Link href={{pathname: '/user_page', query: { userId: props.userId }}}>My Projects</Link>
           </li>
           <li>
             <Link href={{pathname: '/new_project', query: { userId: props.userId }}}>Add New Project</Link>
