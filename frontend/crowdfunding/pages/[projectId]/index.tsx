@@ -22,7 +22,10 @@ const Project: NextPage = (props: any) => {
                  isOwner={router.query.isOwner || false}
                  projectId={props.projectData.id}
                  account={account}
-                 router={router}/>
+                 router={router}
+                 balance={Web3.utils.fromWei(props.projectData.balance)}
+                 status={props.projectData.status}
+                 isClosed={props.projectData.isClosed}/>
   )
 }
 
@@ -45,6 +48,10 @@ export async function getServerSideProps(context: any){
   const projects_date = await proj_contract.methods.date_limit().call();
   const projects_types = await proj_contract.methods.get_project_types().call();
   const projects_amounts = await proj_contract.methods.get_fixed_amounts().call();
+  const is_success = await proj_contract.methods.is_success().call();
+  const is_fail = await proj_contract.methods.is_fail().call();
+  const balance = await proj_contract.methods.get_curr_total_funds().call();
+  const is_closed = await proj_contract.methods.is_closed().call();
 
   return{
     props: {
@@ -56,7 +63,10 @@ export async function getServerSideProps(context: any){
       endDate: projects_date,
       types: projects_types,
       donationAmounts: projects_amounts,
-      image: projects_image
+      image: projects_image,
+      status: is_success ? 'success' : (is_fail ? 'fail': 'active'),
+      balance: balance,
+      isClosed: is_closed
     }
   }
   };

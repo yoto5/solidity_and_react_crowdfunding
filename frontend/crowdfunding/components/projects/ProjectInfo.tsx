@@ -81,6 +81,14 @@ function ProjectInfo(props: any){
       }
     }
 
+    function withdrawHandler(){
+
+    }
+
+    function refundHandler(){
+      
+    }
+
     return(
         <section className={classes.detail}>
         <div className={classes.image}>
@@ -98,6 +106,37 @@ function ProjectInfo(props: any){
               {isOwner && editName && 
               <input type="text" name="name" onChange={(e)=>{setNameVal(e.target.value)}}/>}
               {isOwner && <button onClick={() => {setEditName(!editName)}}>Edit Name</button>}
+          </div>
+          <div className={classes.criticalInfo}>
+            {props.status === 'success' ? (
+                <div className={classes.criticalInfoSuccess}>
+                  <h1>Status: {props.status}</h1>
+                  <h1>Balance: {props.balance}</h1>
+                </div>
+            ):(props.status === 'fail' ? (
+                <div className={classes.criticalInfoFail}>
+                  <h1>Status: {props.status}</h1>
+                  <h1>Balance: {props.balance}</h1>
+                </div>
+            ) : (
+                <div className={classes.criticalInfoActive}>
+                  <h1>Status: {props.status}</h1>
+                  <h1>Balance: {props.balance}</h1>
+                </div>
+            ))
+            }
+            {
+              props.isClosed &&
+              <div className={classes.criticalInfoClosed}>
+                <h1>Project was closed by Withdraw/Refund</h1>
+              </div> 
+            }
+          </div>
+          <div className={classes.ops}>
+              {props.status === 'fail' && 
+              <button className={classes.refund} onClick={refundHandler}>Demand Refund</button>}
+              {isOwner && props.status === 'success' &&
+              <button className={classes.withdraw} onClick={withdrawHandler}>Owner Withdraw</button>}
           </div>
           <div className={classes.details}>
             <div className={classes.editable}>

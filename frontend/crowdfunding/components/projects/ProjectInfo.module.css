@@ -78,12 +78,12 @@ border-radius: 4px;
     background-color: whitesmoke;
   }
 
-.submit{
+.submit, .ops{
     display: flex;
     justify-content: center;
 }
 
-.submit input {
+.submit input, .ops button {
 width: 20rem;
 height: 2rem;
 text-align: center;
@@ -97,7 +97,9 @@ border-radius: 4px;
 }
 
 .submit input:hover,
-.submit input:active{
+.submit input:active,
+.ops button:hover,
+.ops button:active{
 background-color: #bbddc8;
 }
 
@@ -138,4 +140,33 @@ background-color: #bbddc8;
   .remove button:hover,
   .remove button:active{
     background-color: #f1bbbb;
+  }
+
+  .criticalInfo div{
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    margin: 1rem 0rem;
+  }
+
+  .criticalInfoSuccess{
+    border: 1px solid #035217;
+    background-color: #9cdfad;
+  }
+
+  .criticalInfoFail{
+    border: 1px solid #800000;
+    background-color: #f39797;
+  }
+
+  .criticalInfoActive{
+    border: 1px solid #000080;
+    background-color: rgb(210, 207, 252);
+  }
+
+  .criticalInfoClosed{
+    border: 1px solid #000000;
+    background-color: rgb(146, 146, 146);
   }
