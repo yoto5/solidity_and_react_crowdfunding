@@ -62,6 +62,25 @@ function ProjectInfo(props: any){
       }
     }
 
+    function deleteValueHandler(val: any, is_type: boolean){
+      if(is_type){
+        console.log(val);
+        router.push({
+          pathname: '/confirm_field_change',
+          query:{newVal: val, projectAddress: props.projectId, functionName: 'remove_type', 
+            account: props.account, fieldName: 'remove type'}
+        })
+      }
+      else{
+        console.log(val);
+        router.push({
+          pathname: '/confirm_field_change',
+          query:{newVal: String(val), projectAddress: props.projectId, functionName: 'remove_fix_amount', 
+            account: props.account, fieldName: 'remove donation amount'}
+        })
+      }
+    }
+
     return(
         <section className={classes.detail}>
         <div className={classes.image}>
@@ -94,14 +113,23 @@ function ProjectInfo(props: any){
               <p><b>End Date: </b>{new Date(Number(props.endDate)*1000).toLocaleString()}</p>
             </div>   
             <div className={classes.editable}>
-              <p><b>Types: </b><ul>{props.types.map((type: any) => <li>{type}</li>)}</ul></p>
+              <p><b>Types: </b><ul>{props.types.map((type: any) =>
+              <div className={classes.remove}>
+                <li>{type}</li>
+                {isOwner && addType && <button onClick={()=>{deleteValueHandler(type, true)}}>X</button>}
+              </div>
+              )}</ul></p>
               {isOwner && addType && 
               <input type="text" name="type" onChange={(e)=>{setTypeVal(e.target.value)}}/>}
               {isOwner && <button onClick={()=>{setAddType(!addType)}}>Edit Types</button>}
             </div>
             <div className={classes.editable}>
               <p><b>Donation Amounts: </b><ul>{props.donationAmounts.map(
-                (amount: any) => <li>{Web3.utils.fromWei(amount)} (Eth)</li>)}</ul></p>
+                (amount: any) => 
+                <div className={classes.remove}>
+                  <li>{Web3.utils.fromWei(amount)} (Eth)</li>
+                  {isOwner && addAmount && <button  onClick={()=>{deleteValueHandler(amount, false);}}>X</button>}
+                </div>)}</ul></p>
                 {isOwner && addAmount && 
                 <input type="number" step="0.000000000000000001" name="amount" onChange={(e)=>{setAmountVal(Number(e.target.value))}}/>}
                 {isOwner && <button onClick={()=>{setAddAmount(!addAmount)}}>Edit Amounts</button>}

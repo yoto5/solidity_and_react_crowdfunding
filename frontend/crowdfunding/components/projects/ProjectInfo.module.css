@@ -116,3 +116,26 @@ background-color: #bbddc8;
     background-color: rgb(252, 207, 207);
     margin: 1rem;
 }
+
+.remove{
+    display: flex;
+    justify-content: around;
+}
+
+.remove button{
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+    margin: 1rem;
+    font: inherit;
+    cursor: pointer;
+    color: #800000;
+    border: 1px solid #800000;
+    background-color: transparent;
+    border-radius: 4px;
+  }
+  
+  .remove button:hover,
+  .remove button:active{
+    background-color: #f1bbbb;
+  }
