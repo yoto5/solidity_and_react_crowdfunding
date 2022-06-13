@@ -82,11 +82,19 @@ function ProjectInfo(props: any){
     }
 
     function withdrawHandler(){
-
+      router.push({
+        pathname: '/confirm_close',
+        query:{opp: 'withdraw', projectAddress: props.projectId, functionName: 'owner_withdraw', 
+          account: props.account, balance: props.balance}
+      })
     }
 
     function refundHandler(){
-      
+        router.push({
+          pathname: '/confirm_close',
+          query:{opp: 'demand refund', projectAddress: props.projectId, functionName: 'return_funds_to_funders', 
+            account: props.account, balance: props.balance}
+        })
     }
 
     return(
@@ -108,7 +116,7 @@ function ProjectInfo(props: any){
               {isOwner && <button onClick={() => {setEditName(!editName)}}>Edit Name</button>}
           </div>
           <div className={classes.criticalInfo}>
-            {props.status === 'success' ? (
+            { !props.isClosed && (props.status === 'success' ? (
                 <div className={classes.criticalInfoSuccess}>
                   <h1>Status: {props.status}</h1>
                   <h1>Balance: {props.balance}</h1>
@@ -124,7 +132,7 @@ function ProjectInfo(props: any){
                   <h1>Balance: {props.balance}</h1>
                 </div>
             ))
-            }
+            )}
             {
               props.isClosed &&
               <div className={classes.criticalInfoClosed}>
