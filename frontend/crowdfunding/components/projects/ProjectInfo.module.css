@@ -170,3 +170,35 @@ background-color: #bbddc8;
     border: 1px solid #000000;
     background-color: rgb(146, 146, 146);
   }
+
+  .fund{
+    text-align: center;
+    box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    margin: 1rem 0rem;
+    border: 1px solid #035217;
+    background-color: #9cdfad;
+  }
+
+  .innerFund input, .donorNameClass input{
+    margin: 0.5rem;
+    height: 2rem;
+    text-align: center;
+    font: inherit;
+    cursor: pointer;
+    color: #000000;
+    border: 1px solid #000000;
+    background-color: whitesmoke;
+    border-radius: 4px;
+  }
+
+  .innerFund input:hover,
+  .innerFund input:active{
+    background-color: #c4c4c4;
+  }
+
+  .donorNameClass{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

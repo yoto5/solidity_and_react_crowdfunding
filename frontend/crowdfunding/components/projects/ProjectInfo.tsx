@@ -15,6 +15,7 @@ function ProjectInfo(props: any){
     const [editDesc, setEditDesc] = useState(false);
     const [addType, setAddType] = useState(false);
     const [addAmount, setAddAmount] = useState(false);
+    const [fund, setFund] = useState(false);
 
     // state for get inputs values
     const [imageVal, setImageVal] = useState('');
@@ -22,6 +23,8 @@ function ProjectInfo(props: any){
     const [descVal, setDescVal] = useState('');
     const [typeVal, setTypeVal] = useState('');
     const [amountVal, setAmountVal] = useState(0);
+    const [anonymousVal, setAnonymousVal] = useState(true);
+    const [donorNameVal, setDonorNameVal] = useState('');
 
     async function submitHandler(info: any){
       if(nameVal){
@@ -97,6 +100,16 @@ function ProjectInfo(props: any){
         })
     }
 
+    function fundHandler(val: string){
+      const fundAmount = Web3.utils.toWei(val);
+      router.push({
+        pathname: '/confirm_fund',
+        query:{donorName: donorNameVal, projectAddress: props.projectId, functionName: 'fund_project', 
+          account: props.account, anonymous: anonymousVal, amount: fundAmount}
+      })
+      
+    }
+
     return(
         <section className={classes.detail}>
         <div className={classes.image}>
@@ -112,7 +125,7 @@ function ProjectInfo(props: any){
           <div className={classes.name}>
             <h1>{props.name}</h1>
               {isOwner && editName && 
-              <input type="text" name="name" onChange={(e)=>{setNameVal(e.target.value)}}/>}
+              <input type="text" name="name" onChange={(e)=>{setNameVal((e.target.value))}}/>}
               {isOwner && <button onClick={() => {setEditName(!editName)}}>Edit Name</button>}
           </div>
           <div className={classes.criticalInfo}>
@@ -139,6 +152,27 @@ function ProjectInfo(props: any){
                 <h1>Project was closed by Withdraw/Refund</h1>
               </div> 
             }
+          </div>
+          <div>
+            {!props.isClosed && (!(props.status==='fail')) && (
+              <div className={classes.fund}>
+                <h2>Fund Me!</h2>
+                <h4>Enter your name</h4>
+                <div className={classes.donorNameClass}>
+                    <p>Name</p>
+                    <input type="text" onChange={(e)=>setDonorNameVal(e.target.value)}/>
+                    <p>Anonymously</p>
+                    <input type="checkbox" onChange={(e)=>setAnonymousVal(e.target.checked)}/>
+                </div>
+                <h4>Choose amount to fund</h4>
+                <div className={classes.innerFund}>
+                  {props.donationAmounts.map((amount: any) => 
+                    <input type="submit" value={Web3.utils.fromWei(amount)}  onClick={
+                      (e)=>{fundHandler((e.target as HTMLInputElement).value)}}/>
+                    )}
+                </div>
+              </div>
+            )}
           </div>
           <div className={classes.ops}>
               {props.status === 'fail' && 
