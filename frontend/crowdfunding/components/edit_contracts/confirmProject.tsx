@@ -51,22 +51,32 @@ function ConfirmProject(props: any){
 
     return(
         <div>
-            <div>
-                <h2>Please Confirm Your New Project</h2>
-            </div>
-            <div className={classes.info}>
-                <p><b>Name:</b> {router.query.name}</p>
-                <p><b>Description:</b> {router.query.description}</p>
-                <p><b>Target Amount:</b> {router.query.target}</p>
-                <p><b>End Date:</b> {router.query.endDate}</p>
-                <p><b>Image URL:</b> {router.query.image}</p>
-                <p><b>Type:</b> {router.query.type}</p>
-                <p><b>Donation Amount:</b> {router.query.amountToDonate}</p>
-            </div>
-            <div className={classes.actions}>
-                <button onClick={approveHandler} className={classes.conf}>Approve</button>
-                <button onClick={declineHandler} className={classes.dec}>Decline</button>
-            </div>
+            {
+            state.status !=='None' ? (
+                    <div className={classes.info}>
+                        <h2>Transaction status: {state.status}</h2>
+                    </div>
+            ) : (
+                    <div>
+                        <div>
+                            <h2>Please Confirm Your New Project</h2>
+                        </div>
+                        <div className={classes.info}>
+                            <p><b>Name:</b> {router.query.name}</p>
+                            <p><b>Description:</b> {router.query.description}</p>
+                            <p><b>Target Amount:</b> {router.query.target}</p>
+                            <p><b>End Date:</b> {router.query.endDate}</p>
+                            <p><b>Image URL:</b> {router.query.image}</p>
+                            <p><b>Type:</b> {router.query.type}</p>
+                            <p><b>Donation Amount:</b> {router.query.amountToDonate}</p>
+                        </div>
+                        <div className={classes.actions}>
+                            <button onClick={approveHandler} className={classes.conf}>Approve</button>
+                            <button onClick={declineHandler} className={classes.dec}>Decline</button>
+                        </div>
+                    </div>
+                )
+            }
         </div>
     )
 

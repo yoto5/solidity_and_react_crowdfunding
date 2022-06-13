@@ -25,14 +25,24 @@ function ConfirmFieldChange(props: any){
 
     return(
         <div>
-            <div className={classes.info}>
-                <h2>Please confirm</h2>
-                <p>You are going to change {query.fieldName} field to new value: {query.newVal}</p>
-            </div>
-            <div className={classes.actions}>
-                <button onClick={approveHandler} className={classes.conf}>Approve</button>
-                <button onClick={declineHandler} className={classes.dec}>Decline</button>
-            </div>
+            {
+            state.status !=='None' ? (
+                    <div className={classes.info}>
+                        <h2>Transaction status: {state.status}</h2>
+                    </div>
+            ) : (
+                    <div>
+                        <div className={classes.info}>
+                            <h2>Please confirm</h2>
+                            <p>You are going to change {query.fieldName} field to new value: {query.newVal}</p>
+                        </div>
+                        <div className={classes.actions}>
+                            <button onClick={approveHandler} className={classes.conf}>Approve</button>
+                            <button onClick={declineHandler} className={classes.dec}>Decline</button>
+                        </div>
+                    </div>
+                )
+            }
         </div>
     )
 }

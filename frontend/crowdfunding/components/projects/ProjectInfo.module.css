@@ -31,8 +31,8 @@
     justify-content: space-between;
 }
 
-.editable button, .name button {
-    width: 3rem;
+.editable button, .name button, .image button {
+    width: 10rem;
     height: 2rem;
     text-align: center;
     margin: 1rem;
@@ -46,16 +46,18 @@
 
   .name button{
     background-color: whitesmoke;
-  }
+  }  
   
   .editable button:hover,
   .editable button:active,
   .name button:hover,
-  .name button:active{
+  .name button:active,
+  .image button:hover,
+  .image button:active{
     background-color: #c1b1f8;
   }
 
-.editable input, .name input {
+.editable input, .name input, .image input {
 width: 10rem;
 height: 2rem;
 text-align: center;
@@ -66,6 +68,10 @@ color: #000080;
 border: 1px solid #000080;
 background-color: transparent;
 border-radius: 4px;
+}
+
+.image input{
+    width: 30rem;
 }
 
 .name input{
