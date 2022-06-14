@@ -11,7 +11,7 @@ function FinancialInfo(props: any){
 
     const [fund, setFund] = useState(false);
 
-    const [anonymousVal, setAnonymousVal] = useState(true);
+    const [anonymousVal, setAnonymousVal] = useState(false);
     const [donorNameVal, setDonorNameVal] = useState('');
 
     function withdrawHandler(){

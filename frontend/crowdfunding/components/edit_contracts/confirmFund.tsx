@@ -7,16 +7,19 @@ import projectAbi from '../../contracts/project_abi.json'
 import classes from './confirmFieldChange.module.css'
 
 function ConfirmFund(props: any){
-
+    
     const router = props.router;
-    const query = router.query
+    const query = router.query;
 
     const projectInterface = new utils.Interface(projectAbi);
     const projectContract = new Contract(query.projectAddress, projectInterface);
     const {send, state} = useContractFunction(projectContract, query.functionName);
 
+    const anonymousBool = query.anonymous==='true' ? true : false;
+    console.log(anonymousBool, typeof(anonymousBool));
+
     async function approveHandler(){
-        const res = await send(query.donorName, query.anonymous, { value: query.amount });
+        const res = await send(query.donorName, anonymousBool, { value: query.amount });
         router.push('/');
     }
 
@@ -36,6 +39,8 @@ function ConfirmFund(props: any){
                         <div className={classes.info}>
                             <h2>Please confirm</h2>
                             <p>You are going to give {Web3.utils.fromWei(query.amount)} Eth to this project.</p>
+                            <p>You are are sending with name: {query.donorName}.</p>
+                            <p>Did you signed as Anonymous?: {query.anonymous}.</p>
                         </div>
                         <div className={classes.actions}>
                             <button onClick={approveHandler} className={classes.conf}>Approve</button>

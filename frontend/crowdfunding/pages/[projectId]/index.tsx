@@ -25,7 +25,9 @@ const Project: NextPage = (props: any) => {
                  router={router}
                  balance={Web3.utils.fromWei(props.projectData.balance)}
                  status={props.projectData.status}
-                 isClosed={props.projectData.isClosed}/>
+                 isClosed={props.projectData.isClosed}
+                 donorsNames={props.projectData.donorsNames}
+                 donorsAmounts={props.projectData.donorsAmounts}/>
   )
 }
 
@@ -52,6 +54,7 @@ export async function getServerSideProps(context: any){
   const is_fail = await proj_contract.methods.is_fail().call();
   const balance = await proj_contract.methods.get_curr_total_funds().call();
   const is_closed = await proj_contract.methods.is_closed().call();
+  const donors_list = await proj_contract.methods.get_name_to_amount().call();
 
   return{
     props: {
@@ -66,7 +69,9 @@ export async function getServerSideProps(context: any){
       image: projects_image,
       status: is_success ? 'success' : (is_fail ? 'fail': 'active'),
       balance: balance,
-      isClosed: is_closed
+      isClosed: is_closed,
+      donorsNames: donors_list['0'],
+      donorsAmounts: donors_list['1']
     }
   }
   };
