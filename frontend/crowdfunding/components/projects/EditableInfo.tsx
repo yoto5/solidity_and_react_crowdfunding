@@ -71,7 +71,6 @@ function EditableInfo(props: any){
 
     function deleteValueHandler(val: any, is_type: boolean){
       if(is_type){
-        console.log(val);
         router.push({
           pathname: '/confirm_field_change',
           query:{newVal: val, projectAddress: props.projectId, functionName: 'remove_type', 
@@ -79,7 +78,6 @@ function EditableInfo(props: any){
         })
       }
       else{
-        console.log(val);
         router.push({
           pathname: '/confirm_field_change',
           query:{newVal: String(val), projectAddress: props.projectId, functionName: 'remove_fix_amount', 

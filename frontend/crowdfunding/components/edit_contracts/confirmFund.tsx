@@ -16,7 +16,6 @@ function ConfirmFund(props: any){
     const {send, state} = useContractFunction(projectContract, query.functionName);
 
     const anonymousBool = query.anonymous==='true' ? true : false;
-    console.log(anonymousBool, typeof(anonymousBool));
 
     async function approveHandler(){
         const res = await send(query.donorName, anonymousBool, { value: query.amount });

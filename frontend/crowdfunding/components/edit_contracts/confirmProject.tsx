@@ -20,18 +20,14 @@ function ConfirmProject(props: any){
         types_arr: [router.query.type],
         amounts_to_donate: [String(Web3.utils.toWei(router.query.amountToDonate))]
         };
-
-    console.log('projectParams', projectParams);
     
     const crowdfundingInterface = new utils.Interface(crowdfunding_abi);
     const crowdfundingAddress = "0x559Ab353210b80d1AA41F6E794616C0235170213";
     const crowdfundingContract = new Contract(crowdfundingAddress, crowdfundingInterface);
     const {send, state} = useContractFunction(crowdfundingContract, "create_new_project");
 
-    console.log('runContractFunction', send);
-
     async function approveHandler(){
-        const res = send(
+        const res = await send(
             router.query.name,
             router.query.description ? router.query.description : '',
             String(Web3.utils.toWei(router.query.target)),
@@ -40,7 +36,6 @@ function ConfirmProject(props: any){
             [router.query.type],
             [String(Web3.utils.toWei(router.query.amountToDonate))]
             );
-        console.log('res: ', res, 'state: ', state);
 
         router.push('/');
     }

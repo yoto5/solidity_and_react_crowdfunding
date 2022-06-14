@@ -18,15 +18,12 @@ export async function getServerSideProps(context: any){
     const infura = "https://rinkeby.infura.io/v3/de4decb45a434eb5ae1797bb14de7911";
     const userAdd = context.query.userId;
     
-    console.log('user', userAdd);
     // get all projects from main contract
     const web333 = new Web3(infura);
     const main_contract_abi = JSON.parse(JSON.stringify(crowdfunding_abi))
     const proj_abi = JSON.parse(JSON.stringify(project_abi))
     const main_contract = new web333.eth.Contract(main_contract_abi, address);
     const projects_add = await main_contract.methods.get_projects_by_user().call({from: userAdd});
-  
-    console.log('res', projects_add);
   
     const projects_info: any = []
   

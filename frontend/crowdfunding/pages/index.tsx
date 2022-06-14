@@ -39,8 +39,6 @@ export async function getStaticProps(){
   // get all projects types
   const types = await main_contract.methods.get_all_types().call();
 
-  console.log('res', projects_add);
-
   const projects_info: any = []
 
   for (let i = 0; i < projects_add.length; i++) {
