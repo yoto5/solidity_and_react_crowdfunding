@@ -90,9 +90,9 @@ function FinancialInfo(props: any){
             </div>
 
             <div className={classes.ops}>
-              {props.status === 'fail' && 
+              {props.status === 'fail' && !props.isClosed &&
               <button className={classes.refund} onClick={refundHandler}>Demand Refund</button>}
-              {isOwner && props.status === 'success' &&
+              {isOwner && props.status === 'success' && !props.isClosed &&
               <button className={classes.withdraw} onClick={withdrawHandler}>Owner Withdraw</button>}
             </div>
 

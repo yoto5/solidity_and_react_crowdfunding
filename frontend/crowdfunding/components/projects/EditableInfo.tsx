@@ -13,6 +13,7 @@ function EditableInfo(props: any){
     const [editDesc, setEditDesc] = useState(false);
     const [addType, setAddType] = useState(false);
     const [addAmount, setAddAmount] = useState(false);
+    const [editDate, setEditDate] = useState(false);
 
     // state for get inputs values
     const [imageVal, setImageVal] = useState('');
@@ -20,6 +21,7 @@ function EditableInfo(props: any){
     const [descVal, setDescVal] = useState('');
     const [typeVal, setTypeVal] = useState('');
     const [amountVal, setAmountVal] = useState(0);
+    const [dateVal, setDateVal] = useState(0);
 
     async function submitHandler(info: any){
       if(nameVal){
@@ -56,6 +58,13 @@ function EditableInfo(props: any){
           pathname: '/confirm_field_change',
           query:{newVal: imageVal, projectAddress: props.projectId, functionName: 'change_picture', 
             account: props.account, fieldName: 'image'}
+        })
+      }
+      else if(dateVal){
+        router.push({
+          pathname: '/confirm_field_change',
+          query:{newVal: dateVal, projectAddress: props.projectId, functionName: 'set_time_limit', 
+            account: props.account, fieldName: 'end date'}
         })
       }
     }
@@ -113,6 +122,10 @@ function EditableInfo(props: any){
 
                     <div className={classes.editable}>
                         <p><b>End Date: </b>{new Date(Number(props.endDate)*1000).toLocaleString()}</p>
+                        {isOwner && editDate && 
+                        <input type="date" name="date" onChange={(e)=>{
+                            setDateVal((new Date(e.target.value)).valueOf()/1000)}}/>}
+                        {isOwner && <button onClick={() => {setEditDate(!editDate)}}>Edit End Date</button>}
                     </div>  
 
                     <div className={classes.editable}>
@@ -142,7 +155,7 @@ function EditableInfo(props: any){
 
                 <div className={classes.submit}>
                         {isOwner && (
-                        editName || editDesc || addType || addAmount || editImage
+                        editName || editDesc || addType || addAmount || editImage || editDate
                         ) && <input type="submit" name="submit" value={'Submit Changes'} onClick={submitHandler}/>}
                 </div>
             </div>
