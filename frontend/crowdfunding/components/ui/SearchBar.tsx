@@ -1,14 +1,18 @@
 import { useState } from 'react';
-import { Button } from 'web3uikit';
+import { useRouter } from 'next/router';
 
 import classes from './SearchBar.module.css'
 
 function SearchBar(props: any){
 
+    const router = useRouter();
+
     const[showTypes, setShowTypes] = useState(false);
 
-    function handleTypeClick(){
+    function handleTypeClick(e: any){
+        const type = e.target.value ? e.target.value : '';
 
+        router.push({pathname: '/type_page', query: {type: type}});
     }
 
     return(
@@ -17,8 +21,7 @@ function SearchBar(props: any){
                 <div>
                     <div className={classes.allTypes}>
                         {props.types.map((type: any) =>
-                            <button onClick={handleTypeClick} value={type}>{type}</button>
-                            )}
+                            <button onClick={(e)=>{handleTypeClick(e)}} value={type}>{type}</button>)}
                     </div>
                     <div className={classes.hide}>
                         <button onClick={()=>{setShowTypes(!showTypes)}}>Hide Types</button>
