@@ -1,0 +1,52 @@
+.searchBar{
+    display: flex;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    border: 1px solid #000080;
+    background-color: rgb(210, 207, 252);
+    width: 50rem;
+}
+
+
+
+.HeadLine button, .allTypes button{
+    width: 10rem;
+    height: 2rem;
+    text-align: center;
+    margin: 1rem;
+    font: inherit;
+    cursor: pointer;
+    color: #000080;
+    border: 1px solid #000080;
+    background-color: whitesmoke;
+    border-radius: 4px;
+  }
+  
+  .HeadLine button:hover,
+  .HeadLine button:active,
+  .allTypes button:hover,
+  .allTypes button:active{
+    background-color: #efecf7;
+  }
+
+  .hide button{
+    width: 10rem;
+    height: 2rem;
+    text-align: center;
+    margin: 1rem;
+    font: inherit;
+    cursor: pointer;
+    color: #3a0101;
+    border: 1px solid #3a0101;
+    background-color: #f1a3a3;
+    border-radius: 4px;
+  }
+
+  .hide button:hover,
+  .hide button:active{
+    background-color: #ee7c7c;
+  }

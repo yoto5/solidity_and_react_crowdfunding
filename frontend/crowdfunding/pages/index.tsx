@@ -1,14 +1,23 @@
 import type { NextPage } from 'next'
 import Web3 from 'web3'
 
+import SearchBar from '../components/ui/SearchBar'
 import ProjectsList from '../components/projects/ProjectsList'
 import crowdfunding_abi from '../contracts/crowdfunding_abi.json'
 import project_abi from '../contracts/project_abi.json'
 
+import classes from '../components/ui/mainPage.module.css'
 
 const Home: NextPage = (props: any) => {
   return (
-      <ProjectsList projects={props.projects}/>
+      <div className={classes.mainPage}>
+        <div className={classes.Search}>
+          <SearchBar types={props.types}/>
+        </div>
+        <div className={classes.List}>
+          <ProjectsList projects={props.projects}/>
+        </div>
+      </div>
   )
 }
 
@@ -23,7 +32,12 @@ export async function getStaticProps(){
   const main_contract_abi = JSON.parse(JSON.stringify(crowdfunding_abi))
   const proj_abi = JSON.parse(JSON.stringify(project_abi))
   const main_contract = new web333.eth.Contract(main_contract_abi, address);
+
+  // get all projects addresses 
   const projects_add = await main_contract.methods.get_all_projects().call();
+
+  // get all projects types
+  const types = await main_contract.methods.get_all_types().call();
 
   console.log('res', projects_add);
 
@@ -44,7 +58,8 @@ export async function getStaticProps(){
 
   return{
     props:{
-      projects: projects_info
+      projects: projects_info,
+      types: types
     },
     revalidate: 1 // revalidate static page every 1 second 
   };
