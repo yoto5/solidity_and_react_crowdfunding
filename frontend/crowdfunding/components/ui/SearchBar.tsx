@@ -20,6 +20,7 @@ function SearchBar(props: any){
             {showTypes ? (
                 <div>
                     <div className={classes.allTypes}>
+                    <h2>Search by type</h2>
                         {props.types.map((type: any) =>
                             <button onClick={(e)=>{handleTypeClick(e)}} value={type}>{type}</button>)}
                     </div>
