@@ -5,6 +5,7 @@ import Web3 from 'web3';
 
 import crowdfunding_abi from '../../contracts/crowdfunding_abi.json'
 import classes from './confirmProject.module.css'
+import {MAIN_CONTRACT_ADDRESS} from '../../consts'
 
 function ConfirmProject(props: any){
 
@@ -22,7 +23,7 @@ function ConfirmProject(props: any){
         };
     
     const crowdfundingInterface = new utils.Interface(crowdfunding_abi);
-    const crowdfundingAddress = "0x559Ab353210b80d1AA41F6E794616C0235170213";
+    const crowdfundingAddress = MAIN_CONTRACT_ADDRESS;
     const crowdfundingContract = new Contract(crowdfundingAddress, crowdfundingInterface);
     const {send, state} = useContractFunction(crowdfundingContract, "create_new_project");
 

@@ -11,10 +11,13 @@
   "dependencies": {
     "@3rdweb/hooks": "^1.9.2",
     "@usedapp/core": "^1.0.8",
+    "dotenv": "^16.0.1",
     "ethers": "^5.6.8",
     "magic-sdk": "^8.1.1",
+    "mime": "^3.0.0",
     "moralis": "^1.8.0",
     "next": "12.1.6",
+    "nft.storage": "^6.3.0",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-moralis": "^1.4.0",

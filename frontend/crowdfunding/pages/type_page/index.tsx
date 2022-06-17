@@ -1,10 +1,12 @@
-import Web3 from 'web3'
+import Web3 from 'web3';
+import process from 'process';
 
-import ProjectsList from '../../components/projects/ProjectsList'
-import crowdfunding_abi from '../../contracts/crowdfunding_abi.json'
-import project_abi from '../../contracts/project_abi.json'
+import ProjectsList from '../../components/projects/ProjectsList';
+import crowdfunding_abi from '../../contracts/crowdfunding_abi.json';
+import project_abi from '../../contracts/project_abi.json';
 
-import classes from '../../components/ui/typePage.module.css'
+import classes from '../../components/ui/typePage.module.css';
+import {MAIN_CONTRACT_ADDRESS} from '../../consts'
 
 function TypePage(props: any){
 
@@ -23,8 +25,8 @@ function TypePage(props: any){
 export async function getServerSideProps(context: any){
     // static info load
     // fetch data from blockchain
-    const address = "0x559Ab353210b80d1AA41F6E794616C0235170213"
-    const infura = "https://rinkeby.infura.io/v3/de4decb45a434eb5ae1797bb14de7911";
+    const address = MAIN_CONTRACT_ADDRESS
+    const infura = String(process.env.INFURA_URL);
     const type = context.query.type;
     
     // get all projects from main contract

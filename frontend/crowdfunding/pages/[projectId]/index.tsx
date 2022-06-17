@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEthers } from '@usedapp/core';
 import Web3 from 'web3'
+import process from 'process';
 
 import ProjectInfo from '../../components/projects/ProjectInfo';
 import project_abi from '../../contracts/project_abi.json'
@@ -37,7 +38,7 @@ export async function getServerSideProps(context: any){
   // fetch data from blockchain
   const proj_add = context.params.projectId;
 
-  const infura = "https://rinkeby.infura.io/v3/de4decb45a434eb5ae1797bb14de7911";
+  const infura = String(process.env.INFURA_URL);
 
   // get all projects from main contract
   const web333 = new Web3(infura);
