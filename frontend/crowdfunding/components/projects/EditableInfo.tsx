@@ -14,9 +14,10 @@ function EditableInfo(props: any){
     const [addType, setAddType] = useState(false);
     const [addAmount, setAddAmount] = useState(false);
     const [editDate, setEditDate] = useState(false);
+    const [insertImage, setInsertImage] = useState(false);
 
     // state for get inputs values
-    const [imageVal, setImageVal] = useState('');
+    const [imageVal, setImageVal] = useState(undefined);
     const [nameVal, setNameVal] = useState('');
     const [descVal, setDescVal] = useState('');
     const [typeVal, setTypeVal] = useState('');
@@ -54,10 +55,23 @@ function EditableInfo(props: any){
         })
       }
       else if(imageVal){
+
+        setInsertImage(true);
+
+        const body =new FormData();
+        body.append('file', imageVal)
+        const res: any = await fetch(`/api/upload_image_storage`, {
+          method: 'POST',
+          body
+        });
+
+        const newImageUrl = JSON.parse(await res.text()).imageUrl
+        console.log(newImageUrl)
+
         router.push({
           pathname: '/confirm_field_change',
-          query:{newVal: imageVal, projectAddress: props.projectId, functionName: 'change_picture', 
-            account: props.account, fieldName: 'image'}
+          query:{newVal: newImageUrl, projectAddress: props.projectId, functionName: 'change_picture', 
+            account: props.account, fieldName: 'image url'}
         })
       }
       else if(dateVal){
@@ -85,12 +99,18 @@ function EditableInfo(props: any){
         })
       }
     }
+
+    function imageChangeHandler(e: any){
+      setImageVal(e.target.files[0]);
+    }
     return(
-        <section>
+      <div>
+        {insertImage ? (<h1>We are saving your new image</h1>) : 
+        (<section>
             <div className={classes.image}>
                 <img src={props.image} alt=""/>
                 {isOwner && editImage && 
-                <input type="url" name="image" onChange={(e)=>{setImageVal(e.target.value)}}/>}
+                <input type="file" name="image" onChange={imageChangeHandler}/>}
                 {isOwner && <button onClick={() => {setEditImage(!editImage)}}>Edit Image</button>}
             </div>
 
@@ -158,6 +178,8 @@ function EditableInfo(props: any){
                 </div>
             </div>
       </section>
+      )}
+    </div>
     )
 }
 

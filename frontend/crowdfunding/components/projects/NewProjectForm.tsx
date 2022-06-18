@@ -8,7 +8,6 @@ function NewProjectForm(props: any) {
   const descriptionInputRef: any = useRef();
   const targetInputRef: any = useRef();
   const endDateInputRef: any = useRef();
-  const imageInputRef: any = useRef();
   const typeInputRef: any = useRef();
   const AmountToDonateInputRef: any = useRef();
 
@@ -19,7 +18,6 @@ function NewProjectForm(props: any) {
     const enteredDescription: any = descriptionInputRef.current.value;
     const enteredTargetAmount: any = targetInputRef.current.value;
     const enteredEndDate: any = endDateInputRef.current.value;
-    const enteredImage: any = imageInputRef.current.value;
     const enteredType: any = typeInputRef.current.value;
     const enteredAmountToDonate: any = AmountToDonateInputRef.current.value;
 
@@ -28,7 +26,7 @@ function NewProjectForm(props: any) {
       description: enteredDescription,
       target: enteredTargetAmount,
       endDate: enteredEndDate,
-      image: enteredImage,
+      image: '',
       type: enteredType,
       amountToDonate: enteredAmountToDonate
     };
@@ -50,10 +48,6 @@ function NewProjectForm(props: any) {
         <div className={classes.control}>
           <label htmlFor='end_date'>End Date</label>
           <input type="date" required id='end_date' ref={endDateInputRef} />
-        </div>
-        <div className={classes.control}>
-          <label htmlFor='image'>Image</label>
-          <input type='url' required id='image' ref={imageInputRef} />
         </div>
         <div className={classes.control}>
           <label htmlFor='type'>Type</label>
