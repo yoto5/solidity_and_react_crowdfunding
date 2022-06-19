@@ -121,3 +121,106 @@ In our github repo **inside build dir** you can find the Rinkeby deployment info
 - deployments - deployment info, inside map.json you can find our contract's address.
 
 ---
+
+## Frontend
+
+The frontend in this project was written in Next. <br> 
+Connection with solidity contracts is done by usedapp provider (https://usedapp.io/).<br>
+Image storing is done with nft.storage (https://nft.storage/docs/).<br><br>
+
+you can see below the following sections:
+- how to run this app locally
+- pages (see Next.js docs on pages)
+- API endpoint 
+- components 
+- contracts ABI (see solidity docs on ABI)
+- consts.tsx
+
+
+### How To Run This App
+- clone this project
+- `cd` into `frontend/crowdfunding`
+- run `yarn install`
+- run `yarn dev`
+- in your browser go to `localhost:3000`
+
+### pages
+please see next.js docs about pages.
+- [projectId]
+    - **usage**: display single project info.
+    - **components**: this page render `ProjectInfo` component.
+    - **getServerSideProps**: load project's info from the blockchain before rendering.
+- api - see API endpoint section.
+- confirm_close
+    - **usage**: display confirmation page when user want to withdraw/demand refund upon success/fail.
+    - **components**: this page render `ConfirmClose` component.
+- confirm_field_change
+    - **usage**: display confirmation page when user want to edit/add/remove field value.
+    - **components**: this page render `ConfirmFieldChange` component.
+- confirm_fund
+    - **usage**: display confirmation page when user want to donate fund to a project.
+    - **components**: this page render `ConfirmFund` component.
+- confirm_project
+    - **usage**: display confirmation page when user want to open a new project after using create project form.
+    - **components**: this page render `ConfirmProject` component.
+- new_project
+    - **usage**: new project form.
+    - **components**: this page render `NewProjectForm` component.
+    - **on submit**: rout to confirm_project page with the relevant data.
+- type_page
+    - **usage**: display all projects with a specific type.
+    - **components**: this page render `ProjectsList` component.
+    - **getServerSideProps**: load projects by specific type from the blockchain before rendering.
+- user_page
+    - **usage**: display all current user projects.
+    - **components**: this page render `ProjectsList` component, pass `isOwner=true` to enable editing.
+    - **getServerSideProps**: load projects by user address from the blockchain before rendering.
+- _app
+    - please read next.js docs
+    - add `DAppProvider` for web3 capabilities.
+    - add `Layout` component to all pages.
+- index
+    - **usage**: main page, display all projects.
+    - **components**: this page render `ProjectsList` component and `SearchBar` component.
+    - **getStaticProps**: load all projects with relevant info.
+
+### API Endpoint
+please read next.js docs about api endpoints
+- upload_images_storage 
+    - **location**: `pages/api/upload_images_storage.tsx`.
+    - **usage**: upload local image to nft.storage (please read the docs https://nft.storage/docs/).
+    - **input**: image as File.
+    - **output**: stored image ipfs url.
+
+### Components
+- edit_contracts - mostly confirmation components that sends changes to the blockchain with the help of usedapp provider (see the docs - https://usedapp.io/)
+    - ConfirmClose - confirm withdraw/ demand refund operations.
+    - ConfirmFieldChange - send project's owner changes (name/image/etc..)
+    - ConfirmFund - verify donation request and transaction.
+    - ConfirmProject - verify new project info and send request to the main contract.
+- layout - all pages layout
+    - ConnectButton - present the current account/ activate connection handler.
+    - Layout - render the main layout - NavBar + children.
+    - NavBar - useful links - all projects/user's projects/new project.
+- ui - general ui components and css
+    - Card - display project info in projects list
+    - SearchBar - for the main page, able the user to get all projects by specific type.
+- projects - project related components
+    - DonorsList - display donation history for a single project.
+    - EditableInfo - display all editable fields in a project preview (name/image/end date/etc...). has handlers for fields changes and submit button.
+    - FinancialInfo - display project's balance and status as well as donation functionality. has handlers for donation actions.
+    - ProjectElement - this component represents a single project in **projects list** inside the main page/user page/ type page. has button thar routs to project's page.
+    - ProjectInfo - single project preview. renders DonorsList, EditableInfo, FinancialInfo.
+    - ProjectsList - projects list of all props given projects.
+
+
+### Contracts ABI
+- please read solidity docs about ABI.
+- this section is used by web3 provider to activate contract's methods.
+- contracts ABIs:
+    - crowdfunding_abi.json - main app's ABI.
+    - project_abi.json - single project ABI.
+
+### consts.tsx
+- global constants file.
+- currently holds only the main solidity contract's address (rinkeby testnet).
