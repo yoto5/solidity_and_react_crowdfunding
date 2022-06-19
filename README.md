@@ -1,5 +1,7 @@
 # Solidity And next.js Crowdfunding
 
+![alt text](./app.PNG)
+
 ## Intro
 <br>
 In this project we'll implement a crowdfunding web app based on Ethereum blockchain.
@@ -141,6 +143,9 @@ you can see below the following sections:
 - clone this project
 - `cd` into `frontend/crowdfunding`
 - run `yarn install`
+- add `.env` file with the following vars:
+    - `NFT_STORAGE_KEY` your nft.storage account.
+    - `INFURA_URL` your infura url.
 - run `yarn dev`
 - in your browser go to `localhost:3000`
 
