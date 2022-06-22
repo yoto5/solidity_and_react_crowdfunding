@@ -16,7 +16,7 @@ function TypePage(props: any){
                 <h1>Projects of type {props.type}</h1>
             </div>
             <div>
-                <ProjectsList projects={props.projects} isOwner={true}/>
+                <ProjectsList projects={props.projects}/>
             </div>
         </div>   
     )
