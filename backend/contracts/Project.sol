@@ -3,8 +3,9 @@
 pragma solidity ^0.8.13;
 
 import '../interfaces/CrowdfundingWithTypes.sol';
+import '../interfaces/ProjectInterface.sol';
 
-contract Project {
+contract Project is ProjectInterface{
 
     // private attributes 
     address payable project_owner;
@@ -55,7 +56,7 @@ contract Project {
     }
 
     function fund_project(string memory funder_name, bool is_anonymous) 
-    public payable {
+    external payable {
         /* 
          * this function will be used bu users to fund this project.
          * - add the funder to project's funders if it is his first funding 
@@ -83,7 +84,7 @@ contract Project {
         max_recorded_amount = address(this).balance;
     }
 
-    function return_funds_to_funders() public {
+    function return_funds_to_funders() external {
         /*
          * everyone can demand refund.
          * refund can be activated only if those two conditions fulfiled:
@@ -101,7 +102,7 @@ contract Project {
         is_closed = true;
     }
 
-    function owner_withdraw() public {
+    function owner_withdraw() external {
         /*
          * only the owner can withdraw funds uppon success.
          * withdraw can be made only if those two conditions fulfiled:
@@ -122,7 +123,7 @@ contract Project {
         return address(this).balance;
     }
 
-    function is_success() public view returns(bool){
+    function is_success() external view returns(bool){
         /*
          * if timie limit is bigger than now (didn't reach)
          * and curr total funds is bigger or equale than target amount,
@@ -135,7 +136,7 @@ contract Project {
         return false;
     }
 
-    function is_fail() public view returns(bool){
+    function is_fail() external view returns(bool){
         /*
          * if timie limit is less than now (didn't reach)
          * and curr total funds is less than target amount,
@@ -148,7 +149,7 @@ contract Project {
         return false;
     }
 
-    function add_fix_amount(uint256 amount) public {
+    function add_fix_amount(uint256 amount) external {
 
         require(is_closed == false, "This project is close.");
         require(msg.sender == project_owner, "Need owner permissions.");
@@ -156,7 +157,7 @@ contract Project {
         fixed_amounts_to_donate.push(amount);
     }
 
-    function remove_fix_amount(uint256 amount) public {
+    function remove_fix_amount(uint256 amount) external {
 
         require(is_closed == false, "This project is close.");
         require(msg.sender == project_owner, "Need owner permissions.");
@@ -171,7 +172,7 @@ contract Project {
         }
     }
 
-    function add_type(string memory project_type) public {
+    function add_type(string memory project_type) external {
         
         require(is_closed == false, "This project is close."); 
         require(msg.sender == project_owner, "Need owner permissions.");
@@ -181,7 +182,7 @@ contract Project {
     }
 
     
-    function remove_type(string memory project_type) public {
+    function remove_type(string memory project_type) external {
         
         require(is_closed == false, "This project is close."); 
         require(msg.sender == project_owner, "Need owner permissions.");
@@ -201,7 +202,7 @@ contract Project {
         }
     }
 
-    function change_picture(string memory picture_url) public {
+    function change_picture(string memory picture_url) external {
         
         require(is_closed == false, "This project is close."); 
         require(msg.sender == project_owner, "Need owner permissions.");
@@ -209,7 +210,7 @@ contract Project {
         image_url = picture_url;
     }
 
-    function change_project_name(string memory new_name) public {
+    function change_project_name(string memory new_name) external {
         
         require(is_closed == false, "This project is close."); 
         require(msg.sender == project_owner, "Need owner permissions.");
@@ -217,7 +218,7 @@ contract Project {
         project_name = new_name;
     }
 
-    function change_project_description(string memory new_desc) public {
+    function change_project_description(string memory new_desc) external {
         
         require(is_closed == false, "This project is close."); 
         require(msg.sender == project_owner, "Need owner permissions.");
@@ -225,15 +226,15 @@ contract Project {
         project_description = new_desc;
     }
 
-    function get_project_types() public view returns(string[] memory){
+    function get_project_types() external view returns(string[] memory){
         return types;
     }
 
-    function get_fixed_amounts() public view returns(uint256[] memory){
+    function get_fixed_amounts() external view returns(uint256[] memory){
         return fixed_amounts_to_donate;
     }
 
-    function get_name_to_amount() public view 
+    function get_name_to_amount() external view 
     returns(string[] memory,
             uint256[] memory){
         /* 
@@ -253,7 +254,7 @@ contract Project {
         return (funders_names, funders_amounts);
     }
 
-    function set_time_limit(uint256 new_time) public{
+    function set_time_limit(uint256 new_time) external{
         
         require(is_closed == false, "This project is close."); 
         require(msg.sender == project_owner, "Need owner permissions.");

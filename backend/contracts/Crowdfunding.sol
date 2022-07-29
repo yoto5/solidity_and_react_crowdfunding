@@ -43,7 +43,7 @@ contract Crowdfunding is CrowdfundingWithTypes{
         uint256 end_date,
         string memory image_add,
         string[] memory types_arr,
-        uint256[] memory amounts_to_donate) public returns(address){
+        uint256[] memory amounts_to_donate) external returns(address){
         /* 
          * this is a project factory function
          * flow:
@@ -81,19 +81,19 @@ contract Crowdfunding is CrowdfundingWithTypes{
         return address(new_project);
     }
 
-    function get_projects_by_type(string memory project_type) public view 
+    function get_projects_by_type(string memory project_type) external view 
     returns(address[] memory){
 
         return type_to_projects[project_type];
     }
 
-    function get_projects_by_user() public view 
+    function get_projects_by_user() external view 
     returns(address[] memory){
 
         return user_to_projects[msg.sender];
     }
 
-    function get_all_projects() public view 
+    function get_all_projects() external view 
     returns(address[] memory){
 
         return projects;
@@ -128,7 +128,7 @@ contract Crowdfunding is CrowdfundingWithTypes{
         }
     }
 
-    function get_all_types() public view returns(string[] memory){
+    function get_all_types() external view returns(string[] memory){
         /* 
          * this function will return all the types in our main app.
          * the frontend will use it to enable filtering by type.
