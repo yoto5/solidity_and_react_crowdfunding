@@ -15,7 +15,12 @@ function ConfirmClose(props: any){
     const {send, state} = useContractFunction(projectContract, query.functionName);
 
     async function approveHandler(){
-        const res = await send();
+        if(query.donor_add){
+            const res = await send(query.donor_add);
+        }
+        else{
+            const res = await send();
+        }
         router.push('/');
     }
 

@@ -14,6 +14,8 @@ function FinancialInfo(props: any){
     const [anonymousVal, setAnonymousVal] = useState(false);
     const [donorNameVal, setDonorNameVal] = useState('');
 
+    const [donorToRefundAdd, setDonorToRefundAdd] = useState('');
+
     function withdrawHandler(){
         router.push({
           pathname: '/confirm_close',
@@ -22,13 +24,24 @@ function FinancialInfo(props: any){
         })
       }
   
-      function refundHandler(){
+      function globalRefundHandler(){
           router.push({
             pathname: '/confirm_close',
             query:{opp: 'demand refund', projectAddress: props.projectId, functionName: 'return_funds_to_funders', 
-              account: props.account, balance: props.balance}
+              account: props.account, balance: props.balance, donor_add: null}
           })
       }
+
+      function singleRefundHandler(){
+        router.push({
+          pathname: '/confirm_close',
+          query:{
+                opp: 'demand refund for donor with address: ' + donorToRefundAdd, 
+                projectAddress: props.projectId, functionName: 'return_funds_to_single_funder', 
+                account: props.account, balance: props.balance, donor_add: donorToRefundAdd
+        }
+        })
+    }
   
       function fundHandler(val: string){
         const fundAmount = Web3.utils.toWei(val);
@@ -91,7 +104,12 @@ function FinancialInfo(props: any){
 
             <div className={classes.ops}>
               {props.status === 'fail' && !props.isClosed &&
-              <button className={classes.refund} onClick={refundHandler}>Demand Refund</button>}
+              <div>
+                <button className={classes.refund} onClick={globalRefundHandler}>Demand Refund For All Donors</button>
+                <button className={classes.refund} onClick={singleRefundHandler}>Demand Refund For Specific Donor</button>
+                <input type="text" placeholder="Enter Donor Address" onChange={(e)=>setDonorToRefundAdd(e.target.value)}/>
+              </div>
+              }
               {isOwner && props.status === 'success' && !props.isClosed &&
               <button className={classes.withdraw} onClick={withdrawHandler}>Owner Withdraw</button>}
             </div>
