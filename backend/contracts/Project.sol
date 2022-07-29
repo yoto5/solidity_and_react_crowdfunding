@@ -15,6 +15,7 @@ contract Project is ProjectInterface{
     mapping(address=>bool) funder_exists;
     mapping(address=>uint256) funder_to_amount;
     mapping(address=>string) funder_to_name;
+    mapping(address=>bool) funder_got_refund;
 
     // public attributes
     string public project_name;
@@ -72,6 +73,7 @@ contract Project is ProjectInterface{
         if(!funder_exists[msg.sender]){
             funders.push(payable(msg.sender));
             funder_exists[msg.sender] = true;
+            funder_got_refund[msg.sender] = false;
         }
         
         if(is_anonymous){
@@ -97,9 +99,43 @@ contract Project is ProjectInterface{
 
         for(uint i=0; i<funders.length; i++){
             funders[i].transfer(funder_to_amount[funders[i]]);
+            funder_got_refund[funders[i]] = true;
         }
 
         is_closed = true;
+    }
+
+    function close_project_if_no_funders() private{
+        /*
+        * this function verify that all funders got refund and close the porject if they are.
+        */
+        for(uint i=0; i<funders.length; i++){
+            if(!funder_got_refund[funders[i]]){
+                return;
+            }
+        }
+
+        is_closed = true;
+    }
+
+    function return_funds_to_single_funder(address payable funder_add) external{
+        /*
+         * in order to avoid situation of stuck ethereum, 
+         * we need to enable enyone to demand refund for himself or another funder.
+         * refund can be activated only if those two conditions fulfiled:
+         * 1. project has fail.
+         * 2. current project blance is above 0.
+        */
+        require(is_closed == false, "This project is close.");
+        require((this.is_fail() == true) && (address(this).balance > 0),
+        "Project has not failed yet, or doesn't have any funds.");
+
+        if(funder_to_amount[funder_add] > 0){
+            funder_add.transfer(funder_to_amount[funder_add]);
+            funder_got_refund[funder_add] = true;
+        }
+        
+        close_project_if_no_funders();
     }
 
     function owner_withdraw() external {

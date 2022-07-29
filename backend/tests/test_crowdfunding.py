@@ -94,6 +94,35 @@ def test_fail_project_with_refund():
     assert new_project.is_closed() == True
 
 
+def test_single_funder_refund():
+    # deploy main app and create new project
+    crowdfunding, new_project = get_main_app_and_new_project()
+    assert new_project.is_fail() == False
+
+    # 2 transactions from different accounts, not enough 
+    trans = new_project.fund_project("funder1", False, {'from': accounts[1], 'value': 10000})
+    trans.wait(1)
+    trans = new_project.fund_project("funder2", False, {'from': accounts[2], 'value': 10000})
+    trans.wait(1)
+
+    # change date limit for test failure
+    trans = new_project.set_time_limit(int(datetime(2000, 1, 1).timestamp()), {'from': accounts[0]})
+    trans.wait(1)
+
+    # verify failure
+    assert new_project.is_fail() == True
+    assert new_project.get_curr_total_funds() == 20000
+
+    # account 1 demand refund for himself
+    trans = new_project.return_funds_to_single_funder(accounts[1],{'from': accounts[1]})
+    trans.wait(1)
+    assert new_project.is_closed() == False
+
+    # account 1 demand refund for account 2
+    trans = new_project.return_funds_to_single_funder(accounts[2],{'from': accounts[1]})
+    trans.wait(1)
+    assert new_project.is_closed() == True
+
 def test_funding_history():
     # deploy main app and create new project
     crowdfunding, new_project = get_main_app_and_new_project()

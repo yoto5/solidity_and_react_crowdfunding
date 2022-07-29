@@ -9,6 +9,8 @@ interface ProjectInterface {
 
     function return_funds_to_funders() external;
 
+    function return_funds_to_single_funder(address payable funder_add) external;
+
     function owner_withdraw() external;
 
     function is_success() external view returns(bool);
