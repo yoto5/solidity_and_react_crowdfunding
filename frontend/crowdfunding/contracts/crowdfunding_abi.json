@@ -1,145 +1,145 @@
 [
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "project_type",
-          "type": "string"
-        },
-        {
-          "internalType": "address",
-          "name": "project_add",
-          "type": "address"
-        }
-      ],
-      "name": "add_project_to_type_mapping",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "desc",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "target",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "end_date",
-          "type": "uint256"
-        },
-        {
-          "internalType": "string",
-          "name": "image_add",
-          "type": "string"
-        },
-        {
-          "internalType": "string[]",
-          "name": "types_arr",
-          "type": "string[]"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "amounts_to_donate",
-          "type": "uint256[]"
-        }
-      ],
-      "name": "create_new_project",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "get_all_projects",
-      "outputs": [
-        {
-          "internalType": "address[]",
-          "name": "",
-          "type": "address[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "get_all_types",
-      "outputs": [
-        {
-          "internalType": "string[]",
-          "name": "",
-          "type": "string[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "project_type",
-          "type": "string"
-        }
-      ],
-      "name": "get_projects_by_type",
-      "outputs": [
-        {
-          "internalType": "address[]",
-          "name": "",
-          "type": "address[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "get_projects_by_user",
-      "outputs": [
-        {
-          "internalType": "address[]",
-          "name": "",
-          "type": "address[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "project_type",
-          "type": "string"
-        },
-        {
-          "internalType": "address",
-          "name": "project_add",
-          "type": "address"
-        }
-      ],
-      "name": "remove_project_from_type_mapping",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    }
-  ]
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "project_type",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "project_add",
+        "type": "address"
+      }
+    ],
+    "name": "add_project_to_type_mapping",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "desc",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "target",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "end_date",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "image_add",
+        "type": "string"
+      },
+      {
+        "internalType": "string[]",
+        "name": "types_arr",
+        "type": "string[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "amounts_to_donate",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "create_new_project",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "get_all_projects",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "get_all_types",
+    "outputs": [
+      {
+        "internalType": "string[]",
+        "name": "",
+        "type": "string[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "project_type",
+        "type": "string"
+      }
+    ],
+    "name": "get_projects_by_type",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "get_projects_by_user",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "project_type",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "project_add",
+        "type": "address"
+      }
+    ],
+    "name": "remove_project_from_type_mapping",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
