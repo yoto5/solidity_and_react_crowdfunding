@@ -27,7 +27,7 @@ The backend will be written in solidity and the frontend with React.ts.
 
 ### Gas Fees Information:
 - owner successful withdraw - owner will pay the gas fees.
-- demand refund - the user who demand refund first will pay the gas fees.
+- demand refund - the user who demand refund will pay the gas fees.
 - fund project - the user who fund the project. 
 - create new project / edit existing project - project's owner
 - deploy main app - main app's owner.
@@ -36,10 +36,12 @@ The backend will be written in solidity and the frontend with React.ts.
 ## Backend
 As mentioned above, the backend is written in solidity and will be deployed to Ethereum testnet.
 <br>
-In this section we have two solidity contracts And one interface:
+In this section we have two solidity contracts And 3 interface:
 - Crowdfunding.sol
 - Project.sol
+- CrowdfundingInterface.sol - interface
 - CrowdfundingWithTypes.sol - interface
+- ProjectInterface.sol - interface
 <br>
 
 ### Crowdfunding.sol
@@ -68,10 +70,18 @@ Our frontend will connect with this contract in order to:
 - get project's types.
 - get funding history - two lists of funders and amounts.
 
+### CrowdfundingInterface.sol
+This interface is the most basic version of the main app.
+
 ### CrowdfundingWithTypes.sol
 This interface will able the projects contracts to add types in the main contract. as well as add/remove connection between type to project's address.
 <br>
+Inherit from CrowdfundingInterface.
+<br>
 Since cyclic dependencies are forbidden, each project will have address of type  CrowdfundingWithTypes, and it will able the project to edit the main app's types pool.
+
+### ProjectInterface.sol
+This interface represent a single project.
 
 <br>
 
@@ -79,11 +89,12 @@ Since cyclic dependencies are forbidden, each project will have address of type 
 The backend tests are written in python with brownie package.
 <br>
 
-### Setup
+### Test Setup and run
 In order to run the test:
 - open a brownie project with brownie init 
 - locate the contracts/interface/tests in the proper directories
-- in your terminal cd into the brownie project dir and enter: `brownie test`
+- in your cli enter into the backend dir inside the project. `cd .../<your_cloned_project>/backend`
+- in your cli enter `brownie test`
 
 <br>
 
@@ -92,10 +103,11 @@ In order to run the test:
 - deploy new project from the main app and verify the info.
 - project was succeed and owner can withdraw and only owner can withdraw.
 - project was fail, every user can demand refund for funders, can't fund project if it fails.
+- project failure with single user refund. user demand refund for himself and for another user. 
 - get funding history, users can fund anonymously.
 - owner and only owner can change project's types and the change reflects in the main app mapping.
-- owner and only owner can change project's info: name/ description/ amounts to donate/ time limit
-- get all projects from main app, get projects by type, get projects by user
+- owner and only owner can change project's info: name/ description/ amounts to donate/ time limit.
+- get all projects from main app, get projects by type, get projects by user.
 
 <br>
 
@@ -105,22 +117,23 @@ In this project we'll deploy our contracts to Rinkeby testnet.
 <br>
 
 ### Prerequisite:
-- Metamask account (or another wallet with Ethereum)
-- Infura account (send RPC requests to the blockchain)
-- brownie installed
+- Metamask account (or another wallet with Ethereum).
+- Infura account (send RPC requests to the blockchain).
+- brownie installed.
 
 ### How to deploy:
 - Create .env file in your project.
 - Create two env vars in your .env - PRIVATE_KEY, WEB3_INFURA_PROJECT_ID.
 - Export your private key and assign to PRIVATE_KEY.
 - Assign your Infura project id to WEB3_INFURA_PROJECT_ID.
-- Run our deploy script with `brownie run scripts/deploy.py --network=rinkeby`
-- Now you can find your deployment info in build dir.
+- In your cli enter into the backend dir inside the project. `cd .../<your_cloned_project>/backend`
+- In your cli Run the deployment script with `brownie run scripts/deploy.py --network=rinkeby`
+- Now you can find your deployment info in `.../<your_cloned_project>/backend/build` dir.
 
 ### Deployment info:
 In our github repo **inside build dir** you can find the Rinkeby deployment info:
 - contracts/interfaces - all contracts/interfaces info such as ABI.
-- deployments - deployment info, inside map.json you can find our contract's address.
+- deployments - deployment info, inside map.json you can find the contract's address.
 
 ---
 
@@ -141,13 +154,14 @@ you can see below the following sections:
 
 ### How To Run This App
 - clone this project
-- `cd` into `frontend/crowdfunding`
-- run `yarn install`
-- add `.env` file with the following vars:
+- in your cli go to the cloned project `cd .../<cloned_project>/frontend/crowdfunding`
+- in your cli run `yarn install`
+- add `.env` file with the following vars (locate this env var under `.../<cloned_project>/frontend/crowdfunding`):
     - `NFT_STORAGE_KEY` your nft.storage account.
     - `INFURA_URL` your infura url.
-- run `yarn dev`
+- in your cli run `yarn dev`
 - in your browser go to `localhost:3000`
+- if you deployed another version of solidity backend and you want to change the main contract address, in your cloned project change the var `MAIN_CONTRACT_ADDRESS` under `.../<cloned_project>/frontend/crowdfunding/consts.tsx`
 
 ### pages
 please see next.js docs about pages.
