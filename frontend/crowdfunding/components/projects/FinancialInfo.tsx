@@ -105,7 +105,6 @@ function FinancialInfo(props: any){
             <div className={classes.ops}>
               {props.status === 'fail' && !props.isClosed &&
               <div>
-                <button className={classes.refund} onClick={globalRefundHandler}>Demand Refund For All Donors</button>
                 <button className={classes.refund} onClick={singleRefundHandler}>Demand Refund For Specific Donor</button>
                 <input type="text" placeholder="Enter Donor Address" onChange={(e)=>setDonorToRefundAdd(e.target.value)}/>
               </div>
